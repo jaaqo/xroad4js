@@ -6,13 +6,13 @@
  */
 
 /**
- * Transfrom data from XRoad SOAP to JS
+ * Transfrom data from XRoad SOAP to JS dataobject
  *
  * @param {String} soap
  * @return {Object}
  */
 exports.fromXR = function (soap) {
-  return {content: "SOAP"};
+  return {content: 'SOAP'};
 };
 
 /**
@@ -22,5 +22,5 @@ exports.fromXR = function (soap) {
  * @return {String}
  */
 exports.toXR = function (obj) {
-  return {content: "XML"};
+  return '<content>' + obj.content + '</content>';
 };
