@@ -1,5 +1,3 @@
-/*eslint-env node*/
-
 /**
  * XRoad4JS approaches to solve transformations on XML and JSON
  * through functions on data.

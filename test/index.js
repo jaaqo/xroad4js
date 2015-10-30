@@ -1,6 +1,3 @@
-/*eslint-env node*/
-/*global describe,it*/
-
 var expect = require('chai').expect,
   fromXR = require('../index').fromXR,
   toXR = require('../index').toXR;
