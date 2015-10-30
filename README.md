@@ -9,7 +9,7 @@ var fromXR = require('xroad4js').fromXR;
 ```
 
 ## Testing
-`npm test` to run mocha tests using mocha runner
+`npm test` to run mocha tests using mocha runner  
 `gulp test` to run mocha tests using gulp
 
 ### Test runner
