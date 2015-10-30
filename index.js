@@ -1,3 +1,5 @@
+/*eslint-env node*/
+
 /**
  * XRoad4JS approaches to solve transformations on XML and JSON
  * through functions on data.
@@ -12,7 +14,8 @@
  * @return {Object}
  */
 exports.fromXR = function (soap) {
-  return {content: 'SOAP'};
+  var content = /^<content>(.+)<\/content>$/.exec(soap)[1];
+  return {content: content};
 };
 
 /**
