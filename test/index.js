@@ -1,7 +1,9 @@
-var expect = require('chai').expect,
-    fromXR = require('../index').fromXR,
-    toXR = require('../index').toXR;
+/*eslint-env node*/
+/*global describe,it*/
 
+var expect = require('chai').expect,
+  fromXR = require('../index').fromXR,
+  toXR = require('../index').toXR;
 
 describe('#fromXR', function () {
   it('returns an Object', function () {
@@ -10,6 +12,10 @@ describe('#fromXR', function () {
 
   it('returns an object with content property as "SOAP"', function () {
     expect(fromXR('<content>SOAP</content>')).to.have.property('content', 'SOAP');
+  });
+
+  it('returns an object with content property as "Another SOAP 123"', function () {
+    expect(fromXR('<content>Another SOAP 123</content>')).to.have.property('content', 'Another SOAP 123');
   });
 });
 
