@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
  
 gulp.task('test', function () {
@@ -6,6 +7,13 @@ gulp.task('test', function () {
         .pipe(mocha({reporter: 'spec'}));
 });
 
-gulp.task('default', ['test'], function () {
-  gulp.watch(['./index.js', './test/*'], ['test']);
+gulp.task('lint', function () {
+  return gulp.src(['./index.js', './test/*.js'])
+        .pipe(eslint({rulePaths: ['./']}))
+        .pipe(eslint.format())
+        .pipe(eslint.failOnError());
+});
+
+gulp.task('default', ['lint', 'test'], function () {
+  gulp.watch(['./index.js', './test/*'], ['lint', 'test']);
 });

@@ -4,7 +4,7 @@
   "description": " An utility library for handling X-Road SOAP requests and responses to and from JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Jaaqo/xroad4js#readme",
   "devDependencies": {
     "chai": "^3.4.0",
+    "gulp-eslint": "^1.0.0",
     "gulp-mocha": "^2.1.3",
     "gulp-watch": "^4.3.5",
     "mocha": "^2.3.3"
