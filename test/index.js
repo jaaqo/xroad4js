@@ -1,18 +1,60 @@
 var expect = require('chai').expect,
   fromXR = require('../index').fromXR,
-  toXR = require('../index').toXR;
+  toXR = require('../index').toXR,
+  fs = require('fs');
+
+var xmlDeclaration = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
+var testResponse = fs.readFileSync('./test/xml/getRandomResponse.xml', 'utf8');
 
 describe('#fromXR', function () {
-  it('returns an Object', function () {
-    expect(fromXR('<content>SOAP</content>')).to.be.a('object');
+  it('result of parsing is an object', function (done) {
+    fromXR(testResponse, function (err, result) {
+      expect(result).to.be.a('object');
+      done();
+    });
   });
 
-  it('returns an object with content property as "SOAP"', function () {
-    expect(fromXR('<content>SOAP</content>')).to.have.property('content', 'SOAP');
+  it('callback gets passed the 2 objects', function (done) {
+    fromXR(testResponse, function (err, result) {
+      expect(result).to.be.a('object');
+      expect(arguments).to.be.arguments;
+      expect(arguments).to.have.length(2);
+      done();
+    });
   });
 
-  it('returns an object with content property as "Another SOAP 123"', function () {
-    expect(fromXR('<content>Another SOAP 123</content>')).to.have.property('content', 'Another SOAP 123');
+  it('error object is defined when parsing fails', function (done) {
+    fromXR(testResponse.slice(5, testResponse.length), function (err, result) {
+      expect(err).to.be.a('error');
+      expect(result).to.be.a('undefined');
+      done();
+    });
+  });
+
+  describe('calling with a callback function', function () {
+    it('callback gets passed the results with a single top-level property', function (done) {
+      fromXR(testResponse, function (err, result) {
+        expect(Object.getOwnPropertyNames(result)).to.have.length(1);
+        done();
+      });
+    });
+
+    it('results are using default parameters (no namespace and lowercase)', function (done) {
+      fromXR(testResponse, function (err, result) {
+        expect(result).to.have.property('envelope');
+        expect(result.envelope.body).to.have.property('getRandomResponse');
+        done();
+      });
+    });
+  });
+
+  describe('calling with an options object and a callback function', function () {
+    it('results are parsed using passed in options object', function (done) {
+      fromXR(testResponse, {normalizeTags: true, tagNameProcessors: false}, function (err, result) {
+        expect(result).to.have.property('soap-env:envelope');
+        done();
+      });
+    });
   });
 });
 
@@ -21,8 +63,9 @@ describe('#toXR', function () {
     expect(toXR({content: 'SOAP'})).to.be.a('string');
   });
 
-  it('returns XML string "<content>SOAP</content>"', function () {
-    expect(toXR({content: 'SOAP'})).to.equal('<content>SOAP</content>');
+  it('returns XML string with xml declaration concatenated property as enclosing tag, content within', function () {
+    expect(toXR({content: 'SOAP'})).to.equal(xmlDeclaration + '<content>SOAP</content>');
+    expect(toXR({property: 'content'})).to.equal(xmlDeclaration + '<property>content</property>');
   });
 });
 
