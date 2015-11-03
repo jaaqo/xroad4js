@@ -1,7 +1,7 @@
 {
   "name": "xroad4js",
-  "version": "0.0.5",
-  "description": " An utility library for handling X-Road SOAP requests and responses to and from JavaScript",
+  "version": "0.1.0",
+  "description": "A utility library for handling X-Road SOAP requests and responses to and from JavaScript",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --reporter spec"
@@ -14,7 +14,8 @@
     "XRoad",
     "X-Road",
     "SOAP",
-    "KaPA"
+    "KaPA",
+    "parsing"
   ],
   "author": "Jaakko Salokanta <jaakko.salokanta@gmail.com>",
   "license": "MIT",
