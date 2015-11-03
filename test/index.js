@@ -3,7 +3,6 @@ var expect = require('chai').expect,
   toXR = require('../index').toXR,
   fs = require('fs');
 
-var xmlDeclaration = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
 var testResponse = fs.readFileSync('./test/xml/getRandomResponse.xml', 'utf8');
 
 describe('#fromXR', function () {
@@ -60,12 +59,17 @@ describe('#fromXR', function () {
 
 describe('#toXR', function () {
   it('returns a String"', function () {
-    expect(toXR({content: 'SOAP'})).to.be.a('string');
+    expect(toXR()).to.be.a('string');
   });
 
-  it('returns XML string with xml declaration concatenated property as enclosing tag, content within', function () {
-    expect(toXR({content: 'SOAP'})).to.equal(xmlDeclaration + '<content>SOAP</content>');
-    expect(toXR({property: 'content'})).to.equal(xmlDeclaration + '<property>content</property>');
+  it('returns XML string with content within', function () {
+    var xrObj = {
+      header: {},
+      body: {
+        content: 'SOAP'
+      }
+    };
+    expect(toXR(xrObj)).to.match(/<content>SOAP<\/content>/);
   });
 });
 
