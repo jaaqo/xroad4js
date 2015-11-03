@@ -3,17 +3,17 @@ var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
  
 gulp.task('test', function () {
-    return gulp.src('./test/index.js', {read: false})
-        .pipe(mocha({reporter: 'spec'}));
+  return gulp.src('./test/index.js', {read: false})
+    .pipe(mocha({reporter: 'spec'}));
 });
 
 gulp.task('lint', function () {
-  return gulp.src(['./index.js', './test/*.js'])
-        .pipe(eslint({rulePaths: ['./']}))
-        .pipe(eslint.format())
-        .pipe(eslint.failOnError());
+  return gulp.src(['./index.js', './lib/*.js', './test/*.js'])
+    .pipe(eslint({rulePaths: ['./']}))
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError());
 });
 
 gulp.task('default', ['lint', 'test'], function () {
-  gulp.watch(['./index.js', './test/*'], ['lint', 'test']);
+  gulp.watch(['./index.js', './lib/*.js', './test/*.js'], ['lint', 'test']);
 });
