@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * XRoad4JS approaches to solve transformations on XML and JSON
  * through functions on data.
@@ -6,22 +8,11 @@
  */
 
 /**
- * Transfrom data from XRoad SOAP to JS dataobject
- *
- * @param {String} soap
- * @return {Object}
+ * Expose fromXR function
  */
-exports.fromXR = function (soap) {
-  var content = /^<content>(.+)<\/content>$/.exec(soap)[1];
-  return {content: content};
-};
+exports.fromXR = require('./lib/fromxr.js');
 
 /**
- * Transfrom data from XRoad SOAP to JS
- *
- * @param {Object} obj
- * @return {String}
+ * Expose toXR function
  */
-exports.toXR = function (obj) {
-  return '<content>' + obj.content + '</content>';
-};
+exports.toXR = require('./lib/toxr.js');
