@@ -2,7 +2,6 @@
 A utility library for handling X-Road SOAP requests and responses to and from JavaScript
 
 ## Status
-
 This library is currently in a **very early stage of development** and thus under
 constant changes. You should not rely on the functionality this library currently
 provides.
