@@ -1,11 +1,16 @@
 var expect = require('chai').expect,
   fromXR = require('../index').fromXR,
   toXR = require('../index').toXR,
+  XRMsg = require('../lib/xrmsg'),
   fs = require('fs');
 
-var testResponse = fs.readFileSync('./test/xml/getRandomResponse.xml', 'utf8');
-
 describe('#fromXR', function () {
+  var testResponse;
+
+  before(function () {
+    testResponse = fs.readFileSync('./test/xml/getRandomResponse.xml', 'utf8');
+  });
+
   it('result of parsing is an object', function (done) {
     fromXR(testResponse, function (err, result) {
       expect(result).to.be.a('object');
@@ -70,6 +75,118 @@ describe('#toXR', function () {
       }
     };
     expect(toXR(xrObj)).to.match(/<content>SOAP<\/content>/);
+  });
+});
+
+
+describe('#XRMsg', function () {
+
+  var xrmsg;
+
+  beforeEach(function () {
+    xrmsg = new XRMsg();
+  });
+
+  describe('properties', function () {
+    describe('envelope', function () {
+      it('exists', function () {
+        expect(xrmsg).to.have.property('envelope');
+      });
+    });
+    describe('envelope.header', function () {
+      it('exists', function () {
+        expect(xrmsg.envelope).to.have.property('header');
+      });
+    });
+    describe('envelope.body', function () {
+      it('exists', function () {
+        expect(xrmsg.envelope).to.have.property('body');
+      });
+    });
+  });
+
+  describe('methods', function () {
+
+    describe('setClient', function () {
+      var client;
+
+      beforeEach(function () {
+        client = {
+          xRoadInstance: 'FI-TEST',
+          memberClass: 'COM',
+          memberCode: '123456-7',
+          subsystemCode: 'testSystem01'
+        };
+      });
+
+      it('is a function', function () {
+        expect(xrmsg.setClient).to.be.a('function');
+      });
+
+      it('returns itself', function () {
+        expect(xrmsg.setClient()).to.deep.equal(xrmsg);
+      });
+
+      it('works with a single parameter', function () {
+        expect(xrmsg.setClient(client).envelope.header.client).to.equal(client);
+      });
+
+      it('works with comma separated list of parameters', function () {
+        expect(xrmsg.setClient('FI-TEST', 'COM', '123456-7', 'testSystem01').envelope.header.client).to.have.property('xRoadInstance', 'FI-TEST');
+        expect(xrmsg.setClient('FI-TEST', 'COM', '123456-7', 'testSystem01').envelope.header.client).to.have.property('memberClass', 'COM');
+        expect(xrmsg.setClient('FI-TEST', 'COM', '123456-7', 'testSystem01').envelope.header.client).to.have.property('memberCode', '123456-7');
+        expect(xrmsg.setClient('FI-TEST', 'COM', '123456-7', 'testSystem01').envelope.header.client).to.have.property('subsystemCode', 'testSystem01');
+      });
+    });
+
+    describe('setService', function () {
+      it('is a function', function () {
+        expect(xrmsg.setService).to.be.a('function');
+      });
+    });
+
+    describe('setUserId', function () {
+      it('is a function', function () {
+        expect(xrmsg.setUserId).to.be.a('function');
+      });
+    });
+
+    describe('setId', function () {
+      it('is a function', function () {
+        expect(xrmsg.setId).to.be.a('function');
+      });
+    });
+
+    describe('setProtocolVersion', function () {
+      it('is a function', function () {
+        expect(xrmsg.setProtocolVersion).to.be.a('function');
+      });
+    });
+
+    describe('setBody', function () {
+      it('is a function', function () {
+        expect(xrmsg.setBody).to.be.a('function');
+      });
+    });
+
+    describe('setHeader', function () {
+      it('is a function', function () {
+        expect(xrmsg.setHeader).to.be.a('function');
+      });
+    });
+
+    describe('getBody', function () {
+      it('is a function', function () {
+        expect(xrmsg.getBody).to.be.a('function');
+      });
+    });
+
+    describe('getHeader', function () {
+      it('is a function', function () {
+        expect(xrmsg.getHeader).to.be.a('function');
+      });
+    });
+
   });
 });
 
