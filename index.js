@@ -9,16 +9,6 @@
  */
 
 /**
- * Expose request object
- */
-exports.Request = require('./lib/request.js');
-
-/**
- * Expose request object
- */
-exports.Response = require('./lib/response.js');
-
-/**
  * Expose fromXR function
  */
 exports.fromXR = require('./lib/fromxr.js');
