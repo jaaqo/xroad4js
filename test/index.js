@@ -1,6 +1,7 @@
 var expect = require('chai').expect,
-  fromXR = require('../index').fromXR,
-  toXR = require('../index').toXR;
+  xroad4js = require('../index'),
+  toXR = xroad4js.toXR,
+  fromXR = xroad4js.fromXR;
 
 describe('#fromXR', function () {
   it('is a function', function () {
