@@ -17,3 +17,8 @@ exports.fromXR = require('./lib/fromxr.js');
  * Expose toXR function
  */
 exports.toXR = require('./lib/toxr.js');
+
+/**
+ * Expose XRMsg object
+ */
+exports.XRMsg = require('./lib/xrmsg.js');
