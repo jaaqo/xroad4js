@@ -31,7 +31,6 @@
     "mocha": "2.3.3"
   },
   "dependencies": {
-    "bluebird": "3.0.5",
     "xml2js": "0.4.15"
   }
 }
